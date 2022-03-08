@@ -8,8 +8,7 @@ const axios = require('axios');
 const Favourite = require("../models/favourite.model");
 const NFT = require("../models/nft.model");
 const headers = {
-  "x-access-token":
-    "coinranking364e1de9aee4e6296b82b66b4d7d53f44ccdab4df5e455f2",
+  "x-access-token":process.env.COIN_ACCESS_TOKEN,
 };
 
 exports.signup = (req, res) => {
