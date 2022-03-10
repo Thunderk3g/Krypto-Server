@@ -151,7 +151,7 @@ exports.addnft = (req, res) => {
 exports.updateCred = (req, res) => {
   const cred = new updateCred({
     name: req.body.name,
-    email: req.body.email,
+    address: req.body.address,
     photo: req.body.photo,
     userId: req.body.userId,
   });
