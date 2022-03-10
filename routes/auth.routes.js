@@ -37,4 +37,8 @@ app.post("/getnft", controller.getnft);
 
 /*Del NFT*/
 app.post("/delnft", controller.delnft);
+
+/*Update Details*/
+app.post("/updateCred", controller.updateCred);
+
 };

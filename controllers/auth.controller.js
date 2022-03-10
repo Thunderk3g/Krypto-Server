@@ -8,7 +8,7 @@ const axios = require('axios');
 const Favourite = require("../models/favourite.model");
 const NFT = require("../models/nft.model");
 const headers = {
-  "x-access-token":process.env.COIN_ACCESS_TOKEN,
+  "x-access-token":process.env.COIN_ACCESS_TOKEN ,
 };
 
 exports.signup = (req, res) => {
@@ -147,5 +147,21 @@ exports.addnft = (req, res) => {
   res.send(JSON.stringify(delnft));
 }
 
+/*Update Personal Credentials*/
+exports.updateCred = (req, res) => {
+  const cred = new updateCred({
+    name: req.body.name,
+    email: req.body.email,
+    photo: req.body.photo,
+    userId: req.body.userId,
+  });
+  cred.save((err) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    res.send({ message: "Added successfully!" });
+  });
+};
 
 
