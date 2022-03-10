@@ -149,13 +149,13 @@ exports.addnft = (req, res) => {
 
 /*Update Personal Credentials*/
 exports.updateCred = (req, res) => {
-  const cred = new updateCred({
+  const updateCred = new updateCred({
     name: req.body.name,
     address: req.body.address,
     photo: req.body.photo,
     userId: req.body.userId,
   });
-  cred.save((err) => {
+  updateCred.save((err) => {
     if (err) {
       res.status(500).send({ message: err });
       return;
