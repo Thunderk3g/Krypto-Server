@@ -1,6 +1,5 @@
 const { verifySignUp } = require("../middlewares");
 const controller = require("../controllers/auth.controller");
-const uploadController = require("../controllers/upload.controller");
 
 module.exports = function (app) {
   app.use(function (req, res, next) {
@@ -40,8 +39,5 @@ module.exports = function (app) {
   /*Update Details*/
   app.post("/updateCred", controller.updateCred);
 
-  /*Upload Picutre*/
-  app.post("/upload", uploadController.uploadFiles);
-  app.get("/files", uploadController.getListFiles);
-  app.get("/files/:name", uploadController.download);
+
 };
