@@ -1,12 +1,15 @@
 const upload = require("../middlewares/upload");
 const MongoClient = require("mongodb").MongoClient;
 const GridFSBucket = require("mongodb").GridFSBucket;
+// require('dotenv').config()
+
 const url = process.env.MONGO_URL;
 const baseUrl = "http://localhost:3000/files/";
 const mongoClient = new MongoClient(url);
 const uploadFiles = async (req, res) => {
+    console.log(req.body.photo);
   try {
-    await upload(req, res);
+    await upload(req.body.photo, res);
     console.log(req.body.photo);
     if (req.body.photo == undefined) {
       return res.send({

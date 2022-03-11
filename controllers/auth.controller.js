@@ -4,6 +4,9 @@ const User = db.user;
 const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
+// require('dotenv').config();
+
+
 const axios = require('axios');
 const Favourite = require("../models/favourite.model");
 const Credentials = require("../models/updateCred.model")
