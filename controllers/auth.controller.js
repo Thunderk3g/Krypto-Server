@@ -10,6 +10,7 @@ const upload = require("../middlewares/image");
 const Favourite = require("../models/favourite.model");
 const Credentials = require("../models/updateCred.model")
 const NFT = require("../models/nft.model");
+const image = require("../middlewares/image");
 const headers = {
   "x-access-token":process.env.COIN_ACCESS_TOKEN ,
 };
@@ -151,7 +152,7 @@ exports.addnft = (req, res) => {
 }
 
 /*Update Personal Credentials*/
-exports.updateCred(upload.single("file"), async (req, res) => {
+exports.updateCred(image.single("file"), async (req, res) => {
  
   const file = req.body.image
   console.log(req);
