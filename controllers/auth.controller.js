@@ -6,6 +6,7 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 const axios = require('axios');
 const Favourite = require("../models/favourite.model");
+const Credentials = require("../models/updateCred.model")
 const NFT = require("../models/nft.model");
 const headers = {
   "x-access-token":process.env.COIN_ACCESS_TOKEN ,
@@ -149,7 +150,7 @@ exports.addnft = (req, res) => {
 
 /*Update Personal Credentials*/
 exports.updateCred = (req, res) => {
-  const updateCred = new updateCred({
+  const updateCred = new Credentials({
     name: req.body.name,
     address: req.body.address,
     photo: req.body.photo,
