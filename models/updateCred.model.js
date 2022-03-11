@@ -1,16 +1,33 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-const updateCred = mongoose.model(
-  "updateCred",
-  new mongoose.Schema({
-    name: String,
-    address: String,
-    userId: String,
-    photo:{
-        data: Buffer,
-        contentType: String
-    }
-  })
+const updatecred = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    address: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+     
+    userId: {
+      type: String,
+      required: true,
+      trim: true,
+   },
+   photo:{
+    data: Buffer,
+    contentType: String
+}
+  },
+  {
+    timestamps: true,
+  }
 );
+
+const updateCred = mongoose.model('updateCred', updatecred);
 
 module.exports = updateCred;
