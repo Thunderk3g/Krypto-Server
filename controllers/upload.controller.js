@@ -7,11 +7,11 @@ const url = process.env.MONGO_URL;
 const baseUrl = "http://localhost:3000/files/";
 const mongoClient = new MongoClient(url);
 const uploadFiles = async (req, res) => {
-    console.log(req.body.photo);
+    console.log(req.file);
   try {
-    await upload(req.body.photo, res);
-    console.log(req.body.photo);
-    if (req.body.photo == undefined) {
+    await upload(req.file, res);
+    console.log(req.file);
+    if (req.file == undefined) {
       return res.send({
         message: "You must select a file.",
       });
@@ -22,7 +22,9 @@ const uploadFiles = async (req, res) => {
   } catch (error) {
     console.log(error);
     return res.send({
+    
       message: "Error when trying upload image: ${error}",
+
     });
   }
 };
