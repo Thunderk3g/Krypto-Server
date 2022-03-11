@@ -158,6 +158,7 @@ exports.updateCred = (req, res) => {
   });
   updateCred.save((err) => {
     if (err) {
+      console.log(res.body);
       res.status(500).send({ message: err });
       return;
     }
