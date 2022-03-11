@@ -9,7 +9,6 @@ var bcrypt = require("bcryptjs");
 
 const axios = require('axios');
 const Favourite = require("../models/favourite.model");
-const Credentials = require("../models/updateCred.model")
 const NFT = require("../models/nft.model");
 const headers = {
   "x-access-token":process.env.COIN_ACCESS_TOKEN ,
