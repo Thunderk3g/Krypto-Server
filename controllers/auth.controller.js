@@ -1,13 +1,25 @@
 const config = require("../config/auth.config");
 const db = require("../models/");
 const User = db.user;
-const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 const axios = require("axios");
 const Favourite = require("../models/favourite.model");
 const Credentials = require("../models/updateCred.model");
 const NFT = require("../models/nft.model");
+var multer = require('multer');
+const fs = require('fs');
+//Image Upload
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+      cb(null, 'uploads')
+  },
+  filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now())
+  }
+});
+
+var upload = multer({ storage: storage });
 const headers = {
   "x-access-token": process.env.COIN_ACCESS_TOKEN,
 };
