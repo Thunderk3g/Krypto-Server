@@ -1,83 +1,31 @@
-const upload = require("../middlewares/upload");
-const MongoClient = require("mongodb").MongoClient;
-const GridFSBucket = require("mongodb").GridFSBucket;
-// require('dotenv').config()
+var multer = require("multer");
+var fs = require("fs");
+var upload = multer({ dest: 'uploads/' })
+var Image = require('../models/updateCred.model');
 
-const url = process.env.MONGO_URL;
-const baseUrl = "http://localhost:3000/files/";
-const mongoClient = new MongoClient(url);
-const uploadFiles = async (req, res) => {
-    console.log(req.file);
-  try {
-    await upload(req.file, res);
-    console.log(req.file);
-    if (req.file == undefined) {
-      return res.send({
-        message: "You must select a file.",
-      });
-    } 
-    return res.send({
-      message: "File has been uploaded.",
-    });
-  } catch (error) {
-    console.log(error);
-    return res.send({
-    
-      message: "Error when trying upload image: ${error}",
+// GET for image form
+exports.create = function(req, res, next) {
+  res.render("create_image", {title: "Create Image"});
+};
 
-    });
-  }
+// Uploading image to mongoDB Atlas
+ exports.upload = upload.single("image"), function(req, res, next) {
+  var image = new Image({
+      name: req.body.image_name
+  });
+  image.img.data = fs.readFileSync(req.file.path);
+  image.img.contentType = "image/jpg";
+  image.save(function(err) {
+      if (err) { return next(err); }
+      res.redirect("/");
+  });
 };
-const getListFiles = async (req, res) => {
-  try {
-    await mongoClient.connect();
-    const database = mongoClient.db(dbConfig.database);
-    const images = database.collection(dbConfig.imgBucket + ".files");
-    const cursor = images.find({});
-    if ((await cursor.count()) === 0) {
-      return res.status(500).send({
-        message: "No files found!",
-      });
-    }
-    let fileInfos = [];
-    await cursor.forEach((doc) => {
-      fileInfos.push({
-        name: doc.filename,
-        url: baseUrl + doc.filename,
-      });
-    });
-    return res.status(200).send(fileInfos);
-  } catch (error) {
-    return res.status(500).send({
-      message: error.message,
-    });
-  }
-};
-const download = async (req, res) => {
-  try {
-    await mongoClient.connect();
-    const database = mongoClient.db(dbConfig.database);
-    const bucket = new GridFSBucket(database, {
-      bucketName: dbConfig.imgBucket,
-    });
-    let downloadStream = bucket.openDownloadStreamByName(req.params.name);
-    downloadStream.on("data", function (data) {
-      return res.status(200).write(data);
-    });
-    downloadStream.on("error", function (err) {
-      return res.status(404).send({ message: "Cannot download the Image!" });
-    });
-    downloadStream.on("end", () => {
-      return res.end();
-    });
-  } catch (error) {
-    return res.status(500).send({
-      message: error.message,
-    });
-  }
-};
-module.exports = {
-  uploadFiles,
-  getListFiles,
-  download,
-};
+
+// Show some random image
+router.get("/image", function(req, res, next) {
+  Image.findOne({}, function(err, image) {
+      if (err) { return next(err); }
+      res.contentType(image.img.contentType)
+      res.send(image.img.data);
+  });
+});
