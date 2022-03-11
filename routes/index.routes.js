@@ -8,4 +8,5 @@ router.get('/getdata',
 router.post('/getcoinData', 
   controller.getcoinData
 );
+
 module.exports = router;
