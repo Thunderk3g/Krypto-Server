@@ -12,7 +12,6 @@ const updatecred = mongoose.Schema(
       required: true,
       trim: true,
     },
-     
     userId: {
       type: String,
       required: true,
