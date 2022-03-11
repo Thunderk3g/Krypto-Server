@@ -36,10 +36,4 @@ module.exports = function (app) {
   /*Del NFT*/
   app.post("/delnft", controller.delnft);
 
-  /*Update Details*/
-  app.post("/updateCred", controller.updateCred);
-
-  app.post("/upload", uploadController.upload);
-  app.get("/files", uploadController.getListFiles);
-  app.get("/files/:name", uploadController.download);
 };
