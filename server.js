@@ -8,7 +8,6 @@ const cors = require("cors");
 const mongoose = require('mongoose');
 const indexRouter = require("./routes/index.routes");
 //require('dotenv').config()
-var multer = require('multer');
 
 const app = express();
 
@@ -49,17 +48,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
-//Image Upload
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-      cb(null, 'uploads')
-  },
-  filename: (req, file, cb) => {
-      cb(null, file.fieldname + '-' + Date.now())
-  }
-});
 
-var upload = multer({ storage: storage });
 // simple route
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to COVID-X SERVER." });
