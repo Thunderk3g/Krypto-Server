@@ -5,6 +5,8 @@ const Role = db.role;
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 const axios = require('axios');
+const upload = require("../middlewares/image");
+
 const Favourite = require("../models/favourite.model");
 const Credentials = require("../models/updateCred.model")
 const NFT = require("../models/nft.model");
@@ -149,14 +151,25 @@ exports.addnft = (req, res) => {
 }
 
 /*Update Personal Credentials*/
-exports.updateCred = (req, res) => {
-  const updateCred = new Credentials({
-    name: req.body.name,
-    address: req.body.address,
-    photo: req.body.photo.filename,
-    userId: req.body.userId,
-  });
-  console.log(photo);
-};
+exports.updateCred(upload.single("file"), async (req, res) => {
+ 
+  const file = req.body.image
+  console.log(req);
+  if (!file) {
+      const error = new Error('Please upload a file')
+      error.httpStatusCode = 400
+      return next(error)
+  }
+  res.status(200).send({
+      statusCode: 200,
+      status: 'success',
+      uploadedFile: file
+  })
+
+}, (error, req, res, next) => {
+  res.status(400).send({
+      error: error.message
+  })
+});
 
 
