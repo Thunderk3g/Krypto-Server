@@ -151,21 +151,3 @@ exports.addnft = (req, res) => {
   res.send(JSON.stringify(delnft));
 }
 
-/*Update Personal Credentials*/
-exports.updateCred = (req, res) => {
-  const updateCred = new Credentials({
-    name: req.body.name,
-    address: req.body.address,
-    photo: req.body.photo,
-    userId: req.body.userId,
-  });
-  updateCred.save((err) => {
-    if (err) {
-      res.status(500).send({ message: err });
-      return;
-    }
-    res.send({ message: "Added successfully!" });
-  });
-};
-
-
