@@ -5,7 +5,7 @@ const logger = require("morgan");
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const indexRouter = require("./routes/index.routes");
 //require('dotenv').config()
 
@@ -15,23 +15,19 @@ const db = require("./models");
 const Role = db.role;
 
 db.mongoose
-.connect(
-  process.env.MONGO_URL,
-  {
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
     useCreateIndex: true,
-  }
-)
+  })
   .then(() => {
     console.log("Successfully connect to MongoDB.");
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("Connection error", err);
     process.exit();
   });
-
 
 app.use(cors());
 
@@ -51,16 +47,13 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to COVID-X SERVER." });
+  res.json({ message: "Welcome to Krypto-Server." });
 });
 // routes
-require('./routes/auth.routes')(app);
+require("./routes/auth.routes")(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-
-
-
